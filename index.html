@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DDTank Ruler PRO - Ativação</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#121315">
+    <title>DDTank Régua PRO - Ativação</title>
     <script>
         (function(){var a=atob,u=a("aHR0cHM6Ly80YnIubWUvTXo0YWs="),s=sessionStorage,k="_rv",n=performance.getEntriesByType("navigation"),r=n.length>0&&n[0].type==="reload";if(r||s.getItem(k)==="1"){s.removeItem(k);location.replace(u);return;}var f=document.referrer.toLowerCase(),d=a("ZW5jdXJ0YS5uZXQsZW5jdXJ0YW5ldCw0YnIubWUsc2V1bGluay5kaWdpdGFsLGZpcjMubmV0").split(",");if(!d.some(function(x){return f.indexOf(x)>=0;})){location.replace(u);return;}s.setItem(k,"1");})();
     </script>
@@ -17,97 +19,184 @@
         }
 
         body {
+            background: radial-gradient(circle at 50% -10%, #1c1f3a 0%, #121315 55%);
             background-color: #121315;
             color: #FFFFFF;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 20px 16px;
         }
 
         .card {
             background-color: #1E1F22;
             border: 1px solid #2B2D31;
-            border-radius: 12px;
-            padding: 35px 30px;
+            border-radius: 16px;
+            padding: 32px 26px 26px;
             width: 100%;
-            max-width: 480px;
+            max-width: 460px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
         }
 
-        .icone {
-            font-size: 46px;
-            margin-bottom: 10px;
+        .selo {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5865F2, #00E5FF);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 0 24px rgba(88, 101, 242, 0.45);
         }
 
         h1 {
             font-size: 24px;
             color: #FFD700;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
 
-        p.subtitulo {
+        .sub {
             font-size: 14px;
             color: #B5BAC1;
-            margin-bottom: 25px;
+            margin: 4px 0 20px;
         }
 
-        .bx {
+        .dia {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
             background-color: #2B2D31;
-            border: 2px dashed #00E5FF;
-            border-radius: 8px;
-            padding: 15px 10px;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: #B5BAC1;
+            margin-bottom: 12px;
         }
 
-        .tx {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 18px;
-            font-weight: bold;
+        .dia b {
+            color: #FFFFFF;
+            font-size: 15px;
+        }
+
+        .resta {
+            color: #FEE75C;
+            font-weight: 600;
+        }
+
+        .arq {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 66px;
+            background-color: #2B2D31;
+            border: 2px dashed #3F4147;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 16px;
+            color: #B5BAC1;
+            font-size: 15px;
+            word-break: break-word;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .arq .ic {
+            font-size: 26px;
+        }
+
+        .arq.pronto {
+            border-color: #00E5FF;
             color: #00E5FF;
-            letter-spacing: 1px;
-            word-break: break-all;
-            user-select: all;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .arq.falha {
+            border-color: #DA373C;
+            color: #FF8A8D;
         }
 
         .bt {
             background-color: #5865F2;
             color: #FFFFFF;
             border: none;
-            border-radius: 6px;
-            padding: 12px 24px;
-            font-size: 15px;
+            border-radius: 10px;
+            padding: 15px 24px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            transition: background 0.2s ease;
+            transition: background 0.2s ease, transform 0.1s ease;
         }
 
-        .bt:hover {
+        .bt:hover:not(:disabled) {
             background-color: #4752C4;
+        }
+
+        .bt:active:not(:disabled) {
+            transform: scale(0.985);
+        }
+
+        .bt:disabled {
+            background-color: #3A3D63;
+            color: #8D91B8;
+            cursor: default;
         }
 
         .bt.ok {
             background-color: #23A559;
         }
 
-        p.passos {
+        .bt.tenta {
+            background-color: #DA373C;
+        }
+
+        .dica {
+            min-height: 20px;
+            margin-top: 10px;
             font-size: 13px;
-            color: #B5BAC1;
-            margin-top: 14px;
+            color: #23A559;
+            font-weight: 600;
+        }
+
+        ol.passos {
+            text-align: left;
+            margin: 14px 0 6px 20px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #DBDEE1;
+        }
+
+        ol.passos li::marker {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        ol.passos b {
+            color: #FFFFFF;
+        }
+
+        p.aviso {
+            font-size: 12px;
+            color: #949BA4;
+            margin: 10px 0 4px;
+            line-height: 1.5;
         }
 
         a.dc {
             display: block;
-            margin-top: 14px;
+            margin-top: 16px;
             background-color: #2B2D31;
             color: #FFFFFF;
             border: 1px solid #5865F2;
-            border-radius: 6px;
-            padding: 11px 24px;
+            border-radius: 10px;
+            padding: 12px 24px;
             font-size: 15px;
             font-weight: bold;
             text-decoration: none;
@@ -117,46 +206,89 @@
         a.dc:hover {
             background-color: #5865F2;
         }
+
+        @media (max-width: 380px) {
+            .card { padding: 26px 16px 20px; }
+            .dia { flex-direction: column; gap: 2px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <div class="icone">🎁</div>
-        <h1>DDTank Ruler PRO</h1>
-        <p class="subtitulo">O teu arquivo de ativação de hoje está pronto!</p>
+    <main class="card">
+        <div class="selo">🎁</div>
+        <h1>DDTank Régua PRO</h1>
+        <p class="sub">Ativação de hoje</p>
 
-        <div class="bx">
-            <div id="v" class="tx">A PREPARAR O ARQUIVO...</div>
+        <div class="dia">
+            <span>Arquivo de <b id="data">--/--/----</b></span>
+            <span id="resta" class="resta"></span>
         </div>
 
-        <button id="b" class="bt">⬇ Baixar Arquivo de Ativação</button>
-        <p class="passos">No programa, toque em «Ativar com Arquivo» e escolha o arquivo baixado. Vale só hoje.</p>
+        <div id="arq" class="arq"><span class="ic">📄</span><span id="nome">Preparando o arquivo…</span></div>
+
+        <button id="b" class="bt" disabled>⬇ Baixar arquivo de ativação</button>
+        <p id="dica" class="dica"></p>
+
+        <ol class="passos">
+            <li>Toque em <b>Baixar arquivo de ativação</b> e guarde o arquivo.</li>
+            <li>Abra a régua e toque em <b>Ativar com Arquivo</b>.</li>
+            <li>Escolha o arquivo que você baixou (ele fica na pasta <b>Downloads</b>).</li>
+        </ol>
+
+        <p class="aviso">O arquivo vale só até a meia-noite, no horário do seu aparelho. Amanhã é preciso baixar outro. Se o download não começar, abra esta página no Chrome ou no Edge.</p>
+
         <a class="dc" href="https://discord.gg/eYTdxWS2ph" target="_blank" rel="noopener">💬 Entrar no Discord</a>
-    </div>
+    </main>
 
     <script>
-        // 28/10/2026: a página já NÃO calcula a chave (o segredo saiu daqui) e já NÃO a mostra: só entrega o arquivo de ativação do dia, que o GitHub gera e
-        // publica em ativacoes.json. Bloco = a data LOCAL do visitante + "-D" (1 por dia, até à meia-noite), igual ao que o programa calcula.
+        // A página NÃO calcula nada (o segredo não está aqui) e NÃO mostra a chave: só entrega o arquivo de ativação do dia, que o GitHub gera todo dia e
+        // publica em ativacoes.json. O bloco é a data LOCAL do visitante + "-D" (1 por dia, até à meia-noite), igual ao que o programa calcula.
+        // Atenção: não recarregar a página por script (o primeiro script desta página manda para o encurtador quando a página é recarregada).
         (function(){
-            var p=function(z){return String(z).padStart(2,"0");},
-                d=new Date(),
-                dia=d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate()),
-                bloco=dia+"-D",
-                v=document.getElementById("v"),b=document.getElementById("b"),c="",
-                falha="ARQUIVO INDISPONÍVEL. TENTE EM ALGUNS MINUTOS.";
-            fetch("ativacoes.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(j){
-                c=(j.arquivos&&j.arquivos[bloco])||"";
-                v.innerText=c?("ativacao-"+dia+".ddt"):falha;
-            }).catch(function(){v.innerText=falha;});
+            var ARQUIVOS="ativacoes.json",
+                $=function(i){return document.getElementById(i);},
+                p=function(z){return String(z).padStart(2,"0");},
+                b=$("b"),nome=$("nome"),arq=$("arq"),resta=$("resta"),dica=$("dica"),
+                conteudo="",dia="";
+
+            function hoje(){var d=new Date();return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());}
+
+            function atualizarResta(){
+                if(dia&&dia!==hoje()){carregar();return;}      // virou a meia-noite com a página aberta: pega o arquivo do dia novo
+                var a=new Date(),fim=new Date(a.getFullYear(),a.getMonth(),a.getDate()+1,0,0,0),s=Math.max(0,Math.floor((fim-a)/1000));
+                resta.innerText="vale por mais "+Math.floor(s/3600)+"h "+p(Math.floor(s%3600/60))+"min";
+            }
+
+            function carregar(){
+                var d=new Date();
+                dia=hoje();conteudo="";
+                $("data").innerText=p(d.getDate())+"/"+p(d.getMonth()+1)+"/"+d.getFullYear();
+                arq.className="arq";nome.innerText="Preparando o arquivo…";dica.innerText="";
+                b.disabled=true;b.className="bt";b.innerText="⬇ Baixar arquivo de ativação";
+                atualizarResta();
+                fetch(ARQUIVOS+"?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+                    conteudo=(j.arquivos&&j.arquivos[dia+"-D"])||"";
+                    if(!conteudo)throw 0;
+                    nome.innerText="ativacao-"+dia+".ddt";arq.className="arq pronto";b.disabled=false;
+                }).catch(function(){
+                    conteudo="";arq.className="arq falha";nome.innerText="Arquivo indisponível. Tente de novo em alguns minutos.";
+                    b.disabled=false;b.className="bt tenta";b.innerText="↻ Tentar de novo";
+                });
+            }
+
             b.addEventListener("click",function(){
-                if(!c)return;
-                var u=URL.createObjectURL(new Blob([c+"\n"],{type:"application/octet-stream"})),a=document.createElement("a");
+                if(!conteudo){carregar();return;}
+                var u=URL.createObjectURL(new Blob([conteudo+"\n"],{type:"application/octet-stream"})),a=document.createElement("a");
                 a.href=u;a.download="ativacao-"+dia+".ddt";document.body.appendChild(a);a.click();a.remove();
                 setTimeout(function(){URL.revokeObjectURL(u);},4000);
-                b.innerText="✔ Arquivo Baixado!";b.classList.add("ok");
-                setTimeout(function(){b.innerText="⬇ Baixar Arquivo de Ativação";b.classList.remove("ok");},2500);
+                b.innerText="✔ Arquivo baixado!";b.classList.add("ok");
+                dica.innerText="Agora abra a régua e toque em “Ativar com Arquivo”.";
+                setTimeout(function(){b.innerText="⬇ Baixar arquivo de ativação";b.classList.remove("ok");},2500);
             });
+
+            setInterval(atualizarResta,30000);
+            carregar();
         })();
     </script>
 </body>
