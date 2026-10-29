@@ -65,29 +65,6 @@
             margin: 4px 0 20px;
         }
 
-        .dia {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            background-color: #2B2D31;
-            border-radius: 10px;
-            padding: 10px 14px;
-            font-size: 13px;
-            color: #B5BAC1;
-            margin-bottom: 12px;
-        }
-
-        .dia b {
-            color: #FFFFFF;
-            font-size: 15px;
-        }
-
-        .resta {
-            color: #FEE75C;
-            font-weight: 600;
-        }
-
         .arq {
             display: flex;
             align-items: center;
@@ -189,27 +166,18 @@
             line-height: 1.5;
         }
 
-        a.dc {
-            display: block;
+        p.diaria {
             margin-top: 16px;
+            padding: 11px 14px;
             background-color: #2B2D31;
-            color: #FFFFFF;
-            border: 1px solid #5865F2;
             border-radius: 10px;
-            padding: 12px 24px;
-            font-size: 15px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: background 0.2s ease;
-        }
-
-        a.dc:hover {
-            background-color: #5865F2;
+            font-size: 14px;
+            font-weight: 600;
+            color: #FEE75C;
         }
 
         @media (max-width: 380px) {
             .card { padding: 26px 16px 20px; }
-            .dia { flex-direction: column; gap: 2px; }
         }
     </style>
 </head>
@@ -219,11 +187,6 @@
         <div class="selo">🎁</div>
         <h1>DDTank Régua PRO</h1>
         <p class="sub">Ativação de hoje</p>
-
-        <div class="dia">
-            <span>Arquivo de <b id="data">--/--/----</b></span>
-            <span id="resta" class="resta"></span>
-        </div>
 
         <div id="arq" class="arq"><span class="ic">📄</span><span id="nome">Preparando o arquivo…</span></div>
 
@@ -238,7 +201,7 @@
 
         <p class="aviso">O arquivo vale só até a meia-noite, no horário do seu aparelho. Amanhã é preciso baixar outro. Se o download não começar, abra esta página no Chrome ou no Edge.</p>
 
-        <a class="dc" href="https://discord.gg/eYTdxWS2ph" target="_blank" rel="noopener">💬 Entrar no Discord</a>
+        <p class="diaria">📅 Arquivo de ativação diária: um novo todo dia.</p>
     </main>
 
     <script>
@@ -249,24 +212,19 @@
             var ARQUIVOS="ativacoes.json",
                 $=function(i){return document.getElementById(i);},
                 p=function(z){return String(z).padStart(2,"0");},
-                b=$("b"),nome=$("nome"),arq=$("arq"),resta=$("resta"),dica=$("dica"),
+                b=$("b"),nome=$("nome"),arq=$("arq"),dica=$("dica"),
                 conteudo="",dia="";
 
             function hoje(){var d=new Date();return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());}
 
-            function atualizarResta(){
-                if(dia&&dia!==hoje()){carregar();return;}      // virou a meia-noite com a página aberta: pega o arquivo do dia novo
-                var a=new Date(),fim=new Date(a.getFullYear(),a.getMonth(),a.getDate()+1,0,0,0),s=Math.max(0,Math.floor((fim-a)/1000));
-                resta.innerText="vale por mais "+Math.floor(s/3600)+"h "+p(Math.floor(s%3600/60))+"min";
+            function virouODia(){
+                if(dia&&dia!==hoje())carregar();      // virou a meia-noite com a página aberta: pega o arquivo do dia novo
             }
 
             function carregar(){
-                var d=new Date();
                 dia=hoje();conteudo="";
-                $("data").innerText=p(d.getDate())+"/"+p(d.getMonth()+1)+"/"+d.getFullYear();
                 arq.className="arq";nome.innerText="Preparando o arquivo…";dica.innerText="";
                 b.disabled=true;b.className="bt";b.innerText="⬇ Baixar arquivo de ativação";
-                atualizarResta();
                 fetch(ARQUIVOS+"?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
                     conteudo=(j.arquivos&&j.arquivos[dia+"-D"])||"";
                     if(!conteudo)throw 0;
@@ -287,7 +245,7 @@
                 setTimeout(function(){b.innerText="⬇ Baixar arquivo de ativação";b.classList.remove("ok");},2500);
             });
 
-            setInterval(atualizarResta,30000);
+            setInterval(virouODia,30000);
             carregar();
         })();
     </script>
