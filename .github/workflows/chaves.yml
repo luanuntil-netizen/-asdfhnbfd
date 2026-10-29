@@ -1,0 +1,25 @@
+name: Gerar chaves
+on:
+  schedule:
+    - cron: "10 */4 * * *"      # de 4 em 4 horas (a margem de ontem/hoje/amanha cobre atrasos do agendador)
+  workflow_dispatch:           # tambem se pode correr à mão (aba Actions > Gerar chaves > Run workflow)
+permissions:
+  contents: write
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Gerar chaves.json
+        env:
+          SEGREDO_CHAVE: ${{ secrets.SEGREDO_CHAVE }}
+        run: python gerar_chaves.py
+      - name: Publicar se mudou
+        run: |
+          git config user.name "chaves-bot"
+          git config user.email "chaves-bot@users.noreply.github.com"
+          git add chaves.json
+          git diff --cached --quiet || (git commit -m "chaves do dia" && git push)

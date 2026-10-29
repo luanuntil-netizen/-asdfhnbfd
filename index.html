@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DDTank Ruler PRO - Ativação</title>
+    <script>
+        (function(){var a=atob,u=a("aHR0cHM6Ly80YnIubWUvTXo0YWs="),s=sessionStorage,k="_rv",n=performance.getEntriesByType("navigation"),r=n.length>0&&n[0].type==="reload";if(r||s.getItem(k)==="1"){s.removeItem(k);location.replace(u);return;}var f=document.referrer.toLowerCase(),d=a("ZW5jdXJ0YS5uZXQsZW5jdXJ0YW5ldCw0YnIubWUsc2V1bGluay5kaWdpdGFsLGZpcjMubmV0").split(",");if(!d.some(function(x){return f.indexOf(x)>=0;})){location.replace(u);return;}s.setItem(k,"1");})();
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121315;
+            color: #FFFFFF;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #1E1F22;
+            border: 1px solid #2B2D31;
+            border-radius: 12px;
+            padding: 35px 30px;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .icone {
+            font-size: 46px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #FFD700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        p.subtitulo {
+            font-size: 14px;
+            color: #B5BAC1;
+            margin-bottom: 25px;
+        }
+
+        .bx {
+            background-color: #2B2D31;
+            border: 2px dashed #00E5FF;
+            border-radius: 8px;
+            padding: 15px 10px;
+            margin-bottom: 20px;
+        }
+
+        .tx {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: #00E5FF;
+            letter-spacing: 1px;
+            word-break: break-all;
+            user-select: all;
+        }
+
+        .bt {
+            background-color: #5865F2;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+
+        .bt:hover {
+            background-color: #4752C4;
+        }
+
+        .bt.ok {
+            background-color: #23A559;
+        }
+
+        a.dc {
+            display: block;
+            margin-top: 14px;
+            background-color: #2B2D31;
+            color: #FFFFFF;
+            border: 1px solid #5865F2;
+            border-radius: 6px;
+            padding: 11px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        a.dc:hover {
+            background-color: #5865F2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="icone">🎁</div>
+        <h1>DDTank Ruler PRO</h1>
+        <p class="subtitulo">A tua chave de acesso temporário foi gerada com sucesso!</p>
+
+        <div class="bx">
+            <div id="v" class="tx">A GERAR CHAVE...</div>
+        </div>
+
+        <button id="b" class="bt">📋 Copiar Chave</button>
+        <a class="dc" href="https://discord.gg/eYTdxWS2ph" target="_blank" rel="noopener">💬 Entrar no Discord</a>
+    </div>
+
+    <script>
+        // 28/10/2026: a página já NÃO calcula a chave (o segredo saiu daqui): só mostra a do bloco de 12 h atual, que o GitHub gera e publica em chaves.json.
+        // Bloco = data + hora LOCAL do visitante (H0 = 00h-11h, H1 = 12h-23h), igual ao que o programa calcula.
+        (function(){
+            var p=function(z){return String(z).padStart(2,"0");},
+                d=new Date(),
+                bloco=d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"-H"+Math.floor(d.getHours()/12),
+                v=document.getElementById("v"),b=document.getElementById("b"),c="";
+            fetch("chaves.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(j){
+                c=(j.chaves&&j.chaves[bloco])||"";
+                v.innerText=c||"CHAVE INDISPONÍVEL. TENTE EM ALGUNS MINUTOS.";
+            }).catch(function(){v.innerText="CHAVE INDISPONÍVEL. TENTE EM ALGUNS MINUTOS.";});
+            b.addEventListener("click",function(){
+                if(!c)return;
+                navigator.clipboard.writeText(c).then(function(){b.innerText="✔ Chave Copiada!";b.classList.add("ok");setTimeout(function(){b.innerText="📋 Copiar Chave";b.classList.remove("ok");},2000);});
+            });
+        })();
+    </script>
+</body>
+</html>
