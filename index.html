@@ -94,6 +94,12 @@
             background-color: #23A559;
         }
 
+        p.passos {
+            font-size: 13px;
+            color: #B5BAC1;
+            margin-top: 14px;
+        }
+
         a.dc {
             display: block;
             margin-top: 14px;
@@ -118,31 +124,38 @@
     <div class="card">
         <div class="icone">🎁</div>
         <h1>DDTank Ruler PRO</h1>
-        <p class="subtitulo">A tua chave de acesso temporário foi gerada com sucesso!</p>
+        <p class="subtitulo">O teu arquivo de ativação de hoje está pronto!</p>
 
         <div class="bx">
-            <div id="v" class="tx">A GERAR CHAVE...</div>
+            <div id="v" class="tx">A PREPARAR O ARQUIVO...</div>
         </div>
 
-        <button id="b" class="bt">📋 Copiar Chave</button>
+        <button id="b" class="bt">⬇ Baixar Arquivo de Ativação</button>
+        <p class="passos">No programa, toque em «Ativar com Arquivo» e escolha o arquivo baixado. Vale só hoje.</p>
         <a class="dc" href="https://discord.gg/eYTdxWS2ph" target="_blank" rel="noopener">💬 Entrar no Discord</a>
     </div>
 
     <script>
-        // 28/10/2026: a página já NÃO calcula a chave (o segredo saiu daqui): só mostra a do dia, que o GitHub gera e publica em chaves.json.
-        // Bloco = a data LOCAL do visitante + "-D" (1 chave por dia, até à meia-noite), igual ao que o programa calcula.
+        // 28/10/2026: a página já NÃO calcula a chave (o segredo saiu daqui) e já NÃO a mostra: só entrega o arquivo de ativação do dia, que o GitHub gera e
+        // publica em ativacoes.json. Bloco = a data LOCAL do visitante + "-D" (1 por dia, até à meia-noite), igual ao que o programa calcula.
         (function(){
             var p=function(z){return String(z).padStart(2,"0");},
                 d=new Date(),
-                bloco=d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"-D",
-                v=document.getElementById("v"),b=document.getElementById("b"),c="";
-            fetch("chaves.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(j){
-                c=(j.chaves&&j.chaves[bloco])||"";
-                v.innerText=c||"CHAVE INDISPONÍVEL. TENTE EM ALGUNS MINUTOS.";
-            }).catch(function(){v.innerText="CHAVE INDISPONÍVEL. TENTE EM ALGUNS MINUTOS.";});
+                dia=d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate()),
+                bloco=dia+"-D",
+                v=document.getElementById("v"),b=document.getElementById("b"),c="",
+                falha="ARQUIVO INDISPONÍVEL. TENTE EM ALGUNS MINUTOS.";
+            fetch("ativacoes.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(j){
+                c=(j.arquivos&&j.arquivos[bloco])||"";
+                v.innerText=c?("ativacao-"+dia+".ddt"):falha;
+            }).catch(function(){v.innerText=falha;});
             b.addEventListener("click",function(){
                 if(!c)return;
-                navigator.clipboard.writeText(c).then(function(){b.innerText="✔ Chave Copiada!";b.classList.add("ok");setTimeout(function(){b.innerText="📋 Copiar Chave";b.classList.remove("ok");},2000);});
+                var u=URL.createObjectURL(new Blob([c+"\n"],{type:"application/octet-stream"})),a=document.createElement("a");
+                a.href=u;a.download="ativacao-"+dia+".ddt";document.body.appendChild(a);a.click();a.remove();
+                setTimeout(function(){URL.revokeObjectURL(u);},4000);
+                b.innerText="✔ Arquivo Baixado!";b.classList.add("ok");
+                setTimeout(function(){b.innerText="⬇ Baixar Arquivo de Ativação";b.classList.remove("ok");},2500);
             });
         })();
     </script>

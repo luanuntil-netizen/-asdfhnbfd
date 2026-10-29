@@ -1,7 +1,7 @@
 name: Gerar chaves
 on:
   schedule:
-    - cron: "10 3 * * *"        # 1 vez por dia (28/10: a chave é diária; publicam-se ontem, hoje e os 2 dias seguintes, por isso um atraso do agendador não faz falta)
+    - cron: "10 3 * * *"        # 1 vez por dia (28/10: o arquivo de ativação é diário; publicam-se ontem, hoje e os 2 dias seguintes, por isso um atraso do agendador não faz falta)
   workflow_dispatch:           # tambem se pode correr à mão (aba Actions > Gerar chaves > Run workflow)
 permissions:
   contents: write
@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Gerar chaves.json
+      - name: Gerar ativacoes.json
         env:
           SEGREDO_CHAVE: ${{ secrets.SEGREDO_CHAVE }}
         run: python gerar_chaves.py
@@ -21,5 +21,5 @@ jobs:
         run: |
           git config user.name "chaves-bot"
           git config user.email "chaves-bot@users.noreply.github.com"
-          git add chaves.json
-          git diff --cached --quiet || (git commit -m "chaves do dia" && git push)
+          git add ativacoes.json
+          git diff --cached --quiet || (git commit -m "arquivos de ativacao do dia" && git push)
