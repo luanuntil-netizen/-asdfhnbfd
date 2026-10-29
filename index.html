@@ -129,12 +129,12 @@
     </div>
 
     <script>
-        // 28/10/2026: a página já NÃO calcula a chave (o segredo saiu daqui): só mostra a do bloco de 12 h atual, que o GitHub gera e publica em chaves.json.
-        // Bloco = data + hora LOCAL do visitante (H0 = 00h-11h, H1 = 12h-23h), igual ao que o programa calcula.
+        // 28/10/2026: a página já NÃO calcula a chave (o segredo saiu daqui): só mostra a do dia, que o GitHub gera e publica em chaves.json.
+        // Bloco = a data LOCAL do visitante + "-D" (1 chave por dia, até à meia-noite), igual ao que o programa calcula.
         (function(){
             var p=function(z){return String(z).padStart(2,"0");},
                 d=new Date(),
-                bloco=d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"-H"+Math.floor(d.getHours()/12),
+                bloco=d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"-D",
                 v=document.getElementById("v"),b=document.getElementById("b"),c="";
             fetch("chaves.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(j){
                 c=(j.chaves&&j.chaves[bloco])||"";

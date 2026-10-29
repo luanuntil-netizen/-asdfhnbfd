@@ -1,7 +1,7 @@
 name: Gerar chaves
 on:
   schedule:
-    - cron: "10 */4 * * *"      # de 4 em 4 horas (a margem de ontem/hoje/amanha cobre atrasos do agendador)
+    - cron: "10 3 * * *"        # 1 vez por dia (28/10: a chave é diária; publicam-se ontem, hoje e os 2 dias seguintes, por isso um atraso do agendador não faz falta)
   workflow_dispatch:           # tambem se pode correr à mão (aba Actions > Gerar chaves > Run workflow)
 permissions:
   contents: write
